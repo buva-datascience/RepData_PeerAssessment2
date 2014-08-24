@@ -37,7 +37,7 @@ require(gridExtra)
  2. Source data is unzipped using bzfile() function and read via the read.csv() function  
  3. Examine the dataframe using dim() and names() functions* 
 
-```{r processing, cache=TRUE}
+```{r processing}
 # function to Download the file from the website location to the local directory
 dwld_file <- function(fileurl, dest){
         if (!file.exists("data")) dir.create("data")                            # create a folder if it doesnt exist        
@@ -65,7 +65,7 @@ names(StormData)
 
 There are `r length(rownames(StormData))` rows and `r length(names(StormData))` variables/columns in total. The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
 
-```{r hist, cache=TRUE}
+```{r hist}
 # Format Date to see how the data is distributed over years
 StormData$year <- as.numeric(format(as.Date(StormData$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y"))
 hist(StormData$year, breaks=50, color="green", xlab="Storm Data - Years", main="Histogram of the total number of Severe Weather Events")
@@ -73,7 +73,7 @@ hist(StormData$year, breaks=50, color="green", xlab="Storm Data - Years", main="
   
 As observed from the above histogram, the number of events tracked starts to significantly increase around 1995. So, we use the subset of the data from 1995 to 2011 for a better analysis from most out of good records.
 
-```{r filter, cache=TRUE}
+```{r filter}
 # Filter StormData from 1995
 Data <- StormData[StormData$year >= 1995, ]
 dim(Data)
@@ -81,24 +81,19 @@ dim(Data)
 After filtering data after 1995, there are `r dim(Data)[1]` rows and `r dim(Data)[2]` columns. However we dont need the entire columns. For our analysis, we are interested only in looking at the Fatalities, Injuries, Property and Crop Damages and their estimations for the Event types. So we can further filter the dataset to narrow down to the columns which we would like to focus for our research. *We do the following:  
  1. Identify the columns required for research  
  2. Filter the Dataset for the required columns  
- 3. Create new variables to hold the numeric data for calculation from exponentials  
- 4. Examine column names and data with head() and names() functions*  
+ 3. Examine column names and data with dim(), head() and names() functions*  
 
-```{r dataprocessing, cache=TRUE}
+```{r dataprocessing}
 # 1. Identify the Required columns for this research
 ReqdCols <- c("EVTYPE", "FATALITIES", "INJURIES", "PROPDMG", "PROPDMGEXP", "CROPDMG", "CROPDMGEXP")
 
 # 2. Filter the StormData set with the reqd columns
 FilteredStormData <- Data[, ReqdCols]
 
-# 3. Create new variable to calculate the Property and Crop damage
-FilteredStormData$numericPROPDMG <- 0
-FilteredStormData$numericCROPDMG <- 0
-
-# 4. Display column names 
+# 3. Display column names 
 names(FilteredStormData)
 head(FilteredStormData)
-
+dim(FilteredStormData)
 ```
   
 # Impact on Public Health  
@@ -109,7 +104,7 @@ head(FilteredStormData)
  4. Refresh the factor levels for the filtered dataset  
  Repeat Steps 1-4 for analysing the Injuries*  
 
-```{r healthImpact, cache=TRUE}
+```{r healthImpact}
 # 1. Group and sum all Fatalities for the all of the event types
 Fatalities <- aggregate( FilteredStormData$FATALITIES, by=list(FilteredStormData$EVTYPE), sum)
 
@@ -145,26 +140,31 @@ Injuries$EventType <- factor(Injuries$EventType, levels = Injuries$EventType)
  5. Compute the Financial Property Damages    
  Repeat the steps 1-5 for the calculating the Crop damages*    
    
-```{r economydataProcessing, cache=TRUE}
+```{r economydataProcessing}
 options(scipen = 999)
 # 1. Display more details on PropertyDamanageEXP variable
 summary(FilteredStormData$PROPDMGEXP)
 
 # 2. Assign the numeric value which will be exponentially applied for calculating the Financial Damages
 # B for billion, M for million, k for kilo, h for hundred; 
-FilteredStormData$numericPROPDMGEXP[FilteredStormData$PROPDMGEXP %in% c("B","b") ] <- 9
-FilteredStormData$numericPROPDMGEXP[FilteredStormData$PROPDMGEXP %in% c("M","m") ] <- 6
-FilteredStormData$numericPROPDMGEXP[FilteredStormData$PROPDMGEXP %in% c("K","k") ] <- 3
-FilteredStormData$numericPROPDMGEXP[FilteredStormData$PROPDMGEXP %in% c("H","h") ] <- 2
+FilteredStormData$PROPDMGEXP <- as.character(FilteredStormData$PROPDMGEXP)
+FilteredStormData$PROPDMGEXP[toupper(FilteredStormData$PROPDMGEXP) == "B" ] <- "9"
+FilteredStormData$PROPDMGEXP[toupper(FilteredStormData$PROPDMGEXP) == "M" ] <- "6"
+FilteredStormData$PROPDMGEXP[toupper(FilteredStormData$PROPDMGEXP) == "K" ] <- "3"
+FilteredStormData$PROPDMGEXP[toupper(FilteredStormData$PROPDMGEXP) == "H" ] <- "2"
+FilteredStormData$PROPDMGEXP[toupper(FilteredStormData$PROPDMGEXP) == "" ]  <- "0"
 
 # 3. Check for missing values
 sum(is.na(as.numeric(FilteredStormData$PROPDMGEXP)))
+FilteredStormData$PROPDMGEXP[is.na(as.numeric(FilteredStormData$PROPDMGEXP))] <- 0
+sum(is.na(as.numeric(FilteredStormData$PROPDMGEXP)))
 
 # 4. Convert and Assign the PropertyDamageEXP variable to the numeric new variable created
-FilteredStormData$numericPROPDMGEXP[complete.cases(FilteredStormData$PROPDMGEXP)] <- as.numeric(FilteredStormData$PROPDMGEXP[complete.cases(FilteredStormData$PROPDMGEXP)])
+#FilteredStormData$numericPROPDMGEXP[complete.cases(FilteredStormData$PROPDMGEXP)] <- as.numeric(FilteredStormData$PROPDMGEXP[complete.cases(FilteredStormData$PROPDMGEXP)])
+FilteredStormData$PROPDMGEXP <- as.numeric(FilteredStormData$PROPDMGEXP)
 
 # 5. Compute the Financial Property Damages
-FilteredStormData$FinancialDmgPROP <- FilteredStormData$PROPDMG * 10^(FilteredStormData$numericPROPDMG)
+FilteredStormData$FinancialDmgPROP <- FilteredStormData$PROPDMG * 10^(FilteredStormData$PROPDMGEXP)
 
 # Repeat the same process for the CROPDMG
 # 1. Display more details on CropDamageEXP variable
@@ -172,19 +172,24 @@ summary(FilteredStormData$CROPDMGEXP)
 
 # Assign the numeric value which will be exponentially applied for calculating the Financial Damages
 # B for billion, M for million, k for kilo, h for hundred; 
-FilteredStormData$numericCROPDMGEXP[FilteredStormData$CROPDMGEXP %in% c("B","b") ] <- 9
-FilteredStormData$numericCROPDMGEXP[FilteredStormData$CROPDMGEXP %in% c("M","m") ] <- 6
-FilteredStormData$numericCROPDMGEXP[FilteredStormData$CROPDMGEXP %in% c("K","k") ] <- 3
-FilteredStormData$numericCROPDMGEXP[FilteredStormData$CROPDMGEXP %in% c("H","h") ] <- 2
+FilteredStormData$CROPDMGEXP <- as.character(FilteredStormData$CROPDMGEXP)
+FilteredStormData$CROPDMGEXP[toupper(FilteredStormData$CROPDMGEXP) == "B" ] <- "9"
+FilteredStormData$CROPDMGEXP[toupper(FilteredStormData$CROPDMGEXP) == "M" ] <- "6"
+FilteredStormData$CROPDMGEXP[toupper(FilteredStormData$CROPDMGEXP) == "K" ] <- "3"
+FilteredStormData$CROPDMGEXP[toupper(FilteredStormData$CROPDMGEXP) == "H" ] <- "2"
+FilteredStormData$CROPDMGEXP[toupper(FilteredStormData$CROPDMGEXP) == "" ]  <- "0"
 
 # 3. Check for missing values
 sum(is.na(as.numeric(FilteredStormData$CROPDMGEXP)))
+FilteredStormData$CROPDMGEXP[is.na(as.numeric(FilteredStormData$CROPDMGEXP))] <- 0
+sum(is.na(as.numeric(FilteredStormData$CROPDMGEXP)))
 
 # 4. Convert and Assign the PropertyDamageEXP variable to the numeric new variable created
-FilteredStormData$numericCROPDMGEXP[complete.cases(FilteredStormData$CROPDMGEXP)] <- as.numeric(FilteredStormData$CROPDMGEXP[complete.cases(FilteredStormData$CROPDMGEXP)])
+#FilteredStormData$numericCROPDMGEXP[complete.cases(FilteredStormData$CROPDMGEXP)] <- as.numeric(FilteredStormData$CROPDMGEXP[complete.cases(FilteredStormData$CROPDMGEXP)])
+FilteredStormData$CROPDMGEXP <- as.numeric(FilteredStormData$CROPDMGEXP)
 
 # 5. Compute the Financial CROP Damages
-FilteredStormData$FinancialDmgCROP <- FilteredStormData$CROPDMG * 10^(FilteredStormData$numericCROPDMGEXP)
+FilteredStormData$FinancialDmgCROP <- FilteredStormData$CROPDMG * 10^(FilteredStormData$CROPDMGEXP)
 ```
   
   Now that the financial damages are calculated for both the Property and the Crop Damages, we can now look at the Property and Crop Damages caused by the Severe Weather events. Again, we focus on the first 20 most severe types of weather events. *We have done the following:  
@@ -194,7 +199,7 @@ FilteredStormData$FinancialDmgCROP <- FilteredStormData$CROPDMG * 10^(FilteredSt
  4. Refresh the factor levels for the filtered dataset  
  Repeat the steps 1-4 for the CROPDamage*  
   
-```{r economyImpact, cache=TRUE}
+```{r economyImpact}
 options(scipen = 999)
 # 1. Group and sum all PropertyDamages for the all of the event types
 PROPDamage <- aggregate( FilteredStormData$FinancialDmgPROP, by=list(FilteredStormData$EVTYPE), sum)
@@ -234,7 +239,7 @@ Injuries
 ```
   
 To best illustrate, the following pair of graph plots depict the total Public Health Fatalities and Injuries affected by the Severe Weather event types across United States during the period 1995 - 2011:  
-```{r plotHealth, cache=TRUE}
+```{r plotHealth}
 options(scipen = 999)
 # Plot Fatalities graph
 g1 <- ggplot(Fatalities, aes(x = EventType, y = Consequences)) + geom_bar(stat = "identity", fill = "555", 
@@ -262,7 +267,7 @@ CROPDamage
 ```
   
 To best illustrate, the following pair of graph plots depict the total Public Property damages and Crop Damages influenced by the Severe Weather event types across United States during the period 1995 - 2011:    
-```{r plotEconomy, cache=TRUE}
+```{r plotEconomy}
 options(scipen = 999)
 # Plot Property Damage graph
 g3 <- ggplot(PROPDamage, aes(x = EventType, y = Consequences)) + geom_bar(stat = "identity", fill = "555", 
