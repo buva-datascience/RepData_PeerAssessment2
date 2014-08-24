@@ -1,9 +1,4 @@
----
-title: "Reproducible Research - National Weather Events - Peer Assessment#2"
-author: "Buva Ramamoorthy"
-date: "August 23, 2014"
----
-  
+    
 **Important Note:** *Kindly visit the below link for an updated report for this Peer Assessment. The plots are available in the figures folder.  
 [Link to my RPubs](http://rpubs.com/bram/reproducibileresearch2)   
 [Link to my Reproducible Research Repository](https://github.com/buva-datascience/RepData_PeerAssessment2)*    
@@ -66,7 +61,10 @@ There are `r length(rownames(StormData))` rows and `r length(names(StormData))` 
 # Format Date to see how the data is distributed over years
 StormData$year <- as.numeric(format(as.Date(StormData$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y"))
 hist(StormData$year, breaks=50)
-```
+```  
+  
+![plot1](figures/hist.png)   
+    
 As observed from the above histogram, the number of events tracked starts to significantly increase around 1995. So, we use the subset of the data from 1995 to 2011 for a better analysis from most out of good records.  
 
 ```r
@@ -240,8 +238,10 @@ g2 <- ggplot(Injuries, aes(x = EventType, y = Consequences)) + geom_bar(stat = "
 
 # Arrange the plots in a grid
 grid.arrange(g1, g2, ncol=2)
-```
+```  
   
+![plot2](figures/plotHealth.png)  
+    
 From the above histograms, we observe that **Excessive Heat** and **Tornado** cause most fatalities; **Tornato** causes most injuries in the United States from 1995 to 2011.    
     
 **Part2: **Regarding the economic consequences, we have arrived at the top 20 most Severe Weather event types that caused economical disasters on Public Property/Food and Crop damages respectively:      
@@ -269,6 +269,8 @@ g4 <- ggplot(CROPDamage, aes(x = EventType, y = Consequences)) + geom_bar(stat =
 grid.arrange(g3, g4, ncol=1)
 ```
   
+![plot3](figures/plotEconomy.png)  
+    
 From the above histograms, we observe that **Flood** and **Hurricane/Typhoons** cause most Property Damages; **Flood** causes more Crop Damages in the United States from 1995 to 2011.  
   
 # Conclusion  
