@@ -1,6 +1,6 @@
     
 **Important Note:** *Kindly visit the below link for an updated report for this Peer Assessment. The plots are available in the figures folder.  
-[Link to my RPubs](http://rpubs.com/bram/reproducibileresearch2)   
+[Link to my RPubs](http://rpubs.com/bram/reproducibleresearch2)   
 [Link to my Reproducible Research Repository](https://github.com/buva-datascience/RepData_PeerAssessment2)*    
   
 ## Impact of Severe Weather Events on Public Health and Economy in the United States during 1950-2011
@@ -227,27 +227,27 @@ Fatalities
 ```  
   
 ```
-##                  EventType Consequences
-##112          EXCESSIVE HEAT         1903
-##666                 TORNADO         1545
-##134             FLASH FLOOD          934
-##231                    HEAT          924
-##358               LIGHTNING          729
-##144                   FLOOD          423
-##461             RIP CURRENT          360
-##288               HIGH WIND          241
-##683               TSTM WIND          241
-##16                AVALANCHE          223
-##462            RIP CURRENTS          204
-##787            WINTER STORM          195
-##233               HEAT WAVE          161
-##607       THUNDERSTORM WIND          131
-##121            EXTREME COLD          126
-##122 EXTREME COLD/WIND CHILL          125
-##254              HEAVY SNOW          115
-##524             STRONG WIND          103
-##280               HIGH SURF           99
-##70          COLD/WIND CHILL           95
+##                   EventType Consequences
+## 112          EXCESSIVE HEAT         1903
+## 666                 TORNADO         1545
+## 134             FLASH FLOOD          934
+## 231                    HEAT          924
+## 358               LIGHTNING          729
+## 144                   FLOOD          423
+## 461             RIP CURRENT          360
+## 288               HIGH WIND          241
+## 683               TSTM WIND          241
+## 16                AVALANCHE          223
+## 462            RIP CURRENTS          204
+## 787            WINTER STORM          195
+## 233               HEAT WAVE          161
+## 607       THUNDERSTORM WIND          131
+## 121            EXTREME COLD          126
+## 122 EXTREME COLD/WIND CHILL          125
+## 254              HEAVY SNOW          115
+## 524             STRONG WIND          103
+## 280               HIGH SURF           99
+## 70          COLD/WIND CHILL           95
 ```
   
 ```r
@@ -255,27 +255,27 @@ Injuries
 ```  
   
 ```
-##             EventType Consequences
-##666            TORNADO        21765
-##144              FLOOD         6769
-##112     EXCESSIVE HEAT         6525
-##358          LIGHTNING         4631
-##683          TSTM WIND         3630
-##231               HEAT         2030
-##134        FLASH FLOOD         1734
-##607  THUNDERSTORM WIND         1426
-##787       WINTER STORM         1298
-##313  HURRICANE/TYPHOON         1275
-##288          HIGH WIND         1093
-##206               HAIL          916
-##773           WILDFIRE          911
-##254         HEAVY SNOW          751
-##157                FOG          718
-##771   WILD/FOREST FIRE          545
-##632 THUNDERSTORM WINDS          444
-##103         DUST STORM          420
-##792     WINTER WEATHER          398
-##27            BLIZZARD          385
+##              EventType Consequences
+## 666            TORNADO        21765
+## 144              FLOOD         6769
+## 112     EXCESSIVE HEAT         6525
+## 358          LIGHTNING         4631
+## 683          TSTM WIND         3630
+## 231               HEAT         2030
+## 134        FLASH FLOOD         1734
+## 607  THUNDERSTORM WIND         1426
+## 787       WINTER STORM         1298
+## 313  HURRICANE/TYPHOON         1275
+## 288          HIGH WIND         1093
+## 206               HAIL          916
+## 773           WILDFIRE          911
+## 254         HEAVY SNOW          751
+## 157                FOG          718
+## 771   WILD/FOREST FIRE          545
+## 632 THUNDERSTORM WINDS          444
+## 103         DUST STORM          420
+## 792     WINTER WEATHER          398
+## 27            BLIZZARD          385
 ```
   
 To best illustrate, the following pair of graph plots depict the total Public Health Fatalities and Injuries affected by the Severe Weather event types across United States during the period 1995 - 2011:  
@@ -304,27 +304,27 @@ PROPDamage
 ```
 
 ```
-##                    EventType Consequences
-##144                     FLOOD 144022037057
-##313         HURRICANE/TYPHOON  69305840000
-##519               STORM SURGE  43193536000
-##666                   TORNADO  24935939545
-##134               FLASH FLOOD  16047794571
-##206                      HAIL  15048722103
-##306                 HURRICANE  11812819010
-##677            TROPICAL STORM   7653335550
-##288                 HIGH WIND   5259785375
-##773                  WILDFIRE   4759064000
-##520          STORM SURGE/TIDE   4641188000
-##683                 TSTM WIND   4482361440
-##326                 ICE STORM   3643555810
-##607         THUNDERSTORM WIND   3399282992
-##310            HURRICANE OPAL   3172846000
-##771          WILD/FOREST FIRE   3001812500
-##247 HEAVY RAIN/SEVERE WEATHER   2500000000
-##787              WINTER STORM   1538047250
-##479       SEVERE THUNDERSTORM   1200310000
-##84                    DROUGHT   1046106000
+##                     EventType Consequences
+## 144                     FLOOD 144022037057
+## 313         HURRICANE/TYPHOON  69305840000
+## 519               STORM SURGE  43193536000
+## 666                   TORNADO  24935939545
+## 134               FLASH FLOOD  16047794571
+## 206                      HAIL  15048722103
+## 306                 HURRICANE  11812819010
+## 677            TROPICAL STORM   7653335550
+## 288                 HIGH WIND   5259785375
+## 773                  WILDFIRE   4759064000
+## 520          STORM SURGE/TIDE   4641188000
+## 683                 TSTM WIND   4482361440
+## 326                 ICE STORM   3643555810
+## 607         THUNDERSTORM WIND   3399282992
+## 310            HURRICANE OPAL   3172846000
+## 771          WILD/FOREST FIRE   3001812500
+## 247 HEAVY RAIN/SEVERE WEATHER   2500000000
+## 787              WINTER STORM   1538047250
+## 479       SEVERE THUNDERSTORM   1200310000
+## 84                    DROUGHT   1046106000
 ```
   
 ```r
@@ -332,27 +332,27 @@ CROPDamage
 ```
 
 ```
-##            EventType Consequences
-##84            DROUGHT  13922066000
-##144             FLOOD   5422810400
-##306         HURRICANE   2741410000
-##206              HAIL   2614127070
-##313 HURRICANE/TYPHOON   2607872800
-##134       FLASH FLOOD   1343915000
-##121      EXTREME COLD   1292473000
-##179      FROST/FREEZE   1094086000
-##241        HEAVY RAIN    728399800
-##677    TROPICAL STORM    677836000
-##288         HIGH WIND    633561300
-##683         TSTM WIND    553947350
-##112    EXCESSIVE HEAT    492402000
-##607 THUNDERSTORM WIND    414354000
-##231              HEAT    401411500
-##159            FREEZE    396225000
-##666           TORNADO    296595770
-##773          WILDFIRE    295472800
-##76    DAMAGING FREEZE    262100000
-##117 EXCESSIVE WETNESS    142000000
+##             EventType Consequences
+## 84            DROUGHT  13922066000
+## 144             FLOOD   5422810400
+## 306         HURRICANE   2741410000
+## 206              HAIL   2614127070
+## 313 HURRICANE/TYPHOON   2607872800
+## 134       FLASH FLOOD   1343915000
+## 121      EXTREME COLD   1292473000
+## 179      FROST/FREEZE   1094086000
+## 241        HEAVY RAIN    728399800
+## 677    TROPICAL STORM    677836000
+## 288         HIGH WIND    633561300
+## 683         TSTM WIND    553947350
+## 112    EXCESSIVE HEAT    492402000
+## 607 THUNDERSTORM WIND    414354000
+## 231              HEAT    401411500
+## 159            FREEZE    396225000
+## 666           TORNADO    296595770
+## 773          WILDFIRE    295472800
+## 76    DAMAGING FREEZE    262100000
+## 117 EXCESSIVE WETNESS    142000000
 ```
 
 To best illustrate, the following pair of graph plots depict the total Public Property damages and Crop Damages influenced by the Severe Weather event types across United States during the period 1995 - 2011:    

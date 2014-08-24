@@ -6,7 +6,7 @@ output: html_document
 ---
 
 **Important Note:** *Kindly visit the below link for an updated report for this Peer Assessment. The plots are available in the figures folder.  
-[Link to my RPubs](http://rpubs.com/bram/reproducibileresearch2)   
+[Link to my RPubs](http://rpubs.com/bram/reproducibleresearch2)   
 [Link to my Reproducible Research Repository](https://github.com/buva-datascience/RepData_PeerAssessment2)*    
   
 ## Impact of Severe Weather Events on Public Health and Economy in the United States during 1950-2011
